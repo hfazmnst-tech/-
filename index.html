@@ -52,6 +52,7 @@
 
 <section class="panel"><div class="section-head"><h2>اللقاء القادم</h2><span class="muted" id="upcomingStatus">مواعيد البرنامج وفق التقويم الهجري</span></div><div class="next" id="nextBox"><div><div class="label" style="color:#2e9d50;font-size:16px;font-weight:700">الدرس القادم</div><h3 id="nextTitle">شرح الأصول الثلاثة</h3><p id="nextTeacher">د. سلطان السطامي</p></div><div class="date" id="nextDate">الأحد 7 جمادى الأولى 1448هـ</div>
 <div class="countdown" aria-label="الوقت المتبقي على اللقاء">
+<div class="countdown-unit"><b id="countDays">--</b><span>يوم</span></div>
 <div class="countdown-unit"><b id="countHours">--</b><span>ساعة</span></div>
 <div class="countdown-unit"><b id="countMinutes">--</b><span>دقيقة</span></div>
 </div></div></section>
@@ -122,8 +123,12 @@ function updateCountdown(){
   if(!upcomingTime)return;
   const remaining=Math.max(0,upcomingTime.getTime()-Date.now());
   const totalMinutes=Math.floor(remaining/60000);
-  document.getElementById('countHours').textContent=fmt(Math.floor(totalMinutes/60));
-  document.getElementById('countMinutes').textContent=fmt(totalMinutes%60);
+  const days=Math.floor(totalMinutes/1440);
+  const hours=Math.floor((totalMinutes%1440)/60);
+  const minutes=totalMinutes%60;
+  document.getElementById('countDays').textContent=fmt(days);
+  document.getElementById('countHours').textContent=fmt(hours);
+  document.getElementById('countMinutes').textContent=fmt(minutes);
 }
 updateCountdown();
 setInterval(updateCountdown,1000);
